@@ -10,6 +10,6 @@ def s3client():
         service_name='s3',
         aws_access_key_id=os.environ['S3_ACCESS_KEY'],
         aws_secret_access_key=os.environ['S3_SECRET_ACCESS_KEY'],
-        endpoint_url=os.environ['S3_ENDPOINT'],
+        endpoint_url='https://'+os.environ['S3_ENDPOINT'],
     )
     return s3_client
