@@ -3,6 +3,8 @@ from dotenv import find_dotenv, load_dotenv
 import json
 import urllib
 from s3client import s3client, dictToS3
+import time
+
 
 load_dotenv(find_dotenv())
 
@@ -31,11 +33,18 @@ def getSteamProfile(steamID):
     return data['response']['players'][0]
 
 def getSteamProfilefromGroup(group):
+    groupDict = {}
+    i=1
     for member in group:
-        print(member)
+        print(str(i)+' - '+str(member))
         profile = getSteamProfile(member)
         #print(profile)
+        groupDict[member]=(profile)
         dictToS3(profile, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_PROFILE_PATH']+member+'.json',)
+        i=i+1
+        time.sleep(1)
+
+    dictToS3(groupDict, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_PROFILE_PATH']+'index.json',)
 
 ## Update Steam Profile in S3 Storage
 
