@@ -25,7 +25,7 @@ def dictToS3(data, bucket, filename):
 def __main__():
     print("Import Group")
     group = getGroup()
-    dictToS3(group, os.environ['S3_BUCKET'], 'api/rest/v1/steam/group/103582791430857185.json',)
+    dictToS3(group, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_GROUP_PATH']+os.environ['STEAMGROUPID']+'.json',)
 
 if __name__== "__main__":
     __main__()
