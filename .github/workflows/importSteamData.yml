@@ -52,7 +52,7 @@ jobs:
         run: python importGroup.py
       - name: Run Script - Import Steam Profiles
         working-directory: ./src
-        run: python importSteamProfiles.py
+        run: python importSteamProfile.py
       - name: Run Script - Update Playlist
         working-directory: ./src
         run: python setPlayIndexbyProfiles.py
