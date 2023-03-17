@@ -1,6 +1,7 @@
 import os
 from dotenv import find_dotenv, load_dotenv
 import boto3
+import json
 
 load_dotenv(find_dotenv())
 
@@ -13,3 +14,13 @@ def s3client():
         endpoint_url='https://sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT'],
     )
     return s3_client
+
+# data to s3 bucket 
+def dictToS3(data, bucket, filename):
+    s3 = s3client()
+    s3.put_object(
+        Bucket=bucket, 
+        Key=filename, 
+        Body=json.dumps(data), 
+        ACL='public-read',
+        ContentType='application/json')
