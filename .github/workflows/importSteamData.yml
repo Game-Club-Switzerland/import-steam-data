@@ -1,4 +1,4 @@
-name: Import Group Data
+name: Import Steam Group, Player & Playlist
 on:
   push:
     branches: [ master ]
@@ -16,10 +16,13 @@ env:
   S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
   S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
   S3_OBJECT_STEAM_GROUP_PATH: ${{ secrets.S3_OBJECT_STEAM_GROUP_PATH }}
+  S3_OBJECT_STEAM_GROUP_URL: ${{ secrets.S3_OBJECT_STEAM_GROUP_URL }}
+  S3_OBJECT_STEAM_PROFILE_PATH: ${{ secrets.S3_OBJECT_STEAM_PROFILE_PATH }}
+  S3_OBJECT_STEAM_PLAY_PATH: ${{ secrets.S3_OBJECT_STEAM_PLAY_PATH }}
 
 jobs:
   build:
-    name: Import Group Data
+    name: Import Steam Group, Player & Playlist
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -34,12 +37,22 @@ jobs:
           echo "${{ secrets.S3_REGION }}" > .env
           echo "${{ secrets.S3_ACCESS_KEY }}" > .env
           echo "${{ secrets.S3_SECRET_ACCESS_KEY }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_GROUP_PATH }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_GROUP_URL }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_PROFILE_PATH }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_PLAY_PATH }}" > .env
       - name: Install python-dotenv
         run: pip install python-dotenv
       - name: Install xmltodict
         run: pip install xmltodict
       - name: Install boto3
         run: pip install boto3
-      - name: Run Script
+      - name: Run Script - Import Group
         working-directory: ./src
         run: python importGroup.py
+      - name: Run Script - Import Steam Profiles
+        working-directory: ./src
+        run: python importSteamProfiles.py
+      - name: Run Script - Update Playlist
+        working-directory: ./src
+        run: python setPlayIndexbyProfiles.py
