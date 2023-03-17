@@ -30,7 +30,7 @@ def dictToJsonFile(data, filename):
 # data to s3 bucket 
 def dictToS3(data, bucket, filename):
     s3 = s3client()
-    s3.put_object(Bucket=bucket, Key=filename, Body=json.dumps(data))
+    s3.put_object(Bucket=bucket, Key=filename, Body=json.dumps(data), ACL='public-read')
 
 def __main__():
     print("Import Group")
