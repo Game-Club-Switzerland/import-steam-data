@@ -42,7 +42,7 @@ def getSteamProfilefromGroup(group):
         groupDict[member]=(profile)
         dictToS3(profile, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_PROFILE_PATH']+member+'.json',)
         i=i+1
-        time.sleep(1)
+        time.sleep(0.75)
 
     dictToS3(groupDict, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_PROFILE_PATH']+'index.json',)
 
