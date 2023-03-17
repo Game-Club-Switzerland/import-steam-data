@@ -8,6 +8,7 @@ on:
   - cron: "*/5 * * * *"
 
 env:
+  STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
   STEAM_GROUP_URL: ${{ secrets.STEAM_GROUP_URL }}
   STEAM_GROUP_ID: ${{ secrets.STEAM_GROUP_ID }}
   S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
@@ -32,6 +33,8 @@ jobs:
       - name: Create Virtual Environment
         run: |
           echo "${{ secrets.STEAM_GROUP_URL }}" > .env
+          echo "${{ secrets.STEAM_API_KEY }}" > .env
+          echo "${{ secrets.STEAM_GROUP_ID }}" > .env
           echo "${{ secrets.S3_ENDPOINT }}" > .env
           echo "${{ secrets.S3_BUCKET }}" > .env
           echo "${{ secrets.S3_REGION }}" > .env
