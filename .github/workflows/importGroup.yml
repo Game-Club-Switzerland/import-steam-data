@@ -1,0 +1,33 @@
+name: Import Group Data
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+  - cron: "*/5 * * * *"
+
+env:
+  STEAMGROUPURL: ${{ secrets.STEAMGROUPURL }}
+
+jobs:
+  build:
+    name: Import Group Data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Create Virtual Environment
+        run: |
+          echo "${{ secrets.STEAMGROUPURL }}" > .env
+      - name: Install python-dotenv
+        run: pip install python-dotenv
+      - name: Install xmltodict
+        run: pip install xmltodict
+      - name: Run Script
+        working-directory: ./src
+        run: python importGroup.py
+      - name: Test
+        run: echo "Secret Variabel --> $STEAMGROUPURL"
