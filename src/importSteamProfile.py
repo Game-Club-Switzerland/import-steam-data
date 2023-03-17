@@ -5,7 +5,6 @@ import urllib
 from s3client import s3client, dictToS3
 import time
 
-
 load_dotenv(find_dotenv())
 
 ## Load Memberlist from S3 Storage
@@ -18,9 +17,7 @@ def getGroupfromS3():
     return response
 
 def getGroup():
-    url = 'https://'+os.environ['S3_BUCKET']+'.sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT']+os.environ['S3_OBJECT_STEAM_GROUP_PATH']+os.environ['STEAM_GROUP_ID']+'.json'
-    print(url)
-    url='https://sos-ch-dk-2.exo.io/gameclubch/api/rest/v1/steam/group/103582791430857185.json'
+    url = 'https://'+os.environ['S3_BUCKET']+'.sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT']+'/'+os.environ['S3_OBJECT_STEAM_GROUP_PATH']+os.environ['STEAM_GROUP_ID']+'.json'
     response = urllib.request.urlopen(url).read()
     data = json.loads(response)
     return data['memberList']['members']['steamID64']
