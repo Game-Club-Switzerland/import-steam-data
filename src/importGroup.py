@@ -8,7 +8,7 @@ from s3client import s3client
 load_dotenv(find_dotenv())
 
 def getGroup():
-    response = urllib.request.urlopen(os.environ['STEAMGROUPURL']).read()
+    response = urllib.request.urlopen(os.environ['STEAM_GROUP_URL']).read()
     data = xmltodict.parse(response)
     return data
 
@@ -30,7 +30,7 @@ def dictToS3(data, bucket, filename):
 def __main__():
     print("Import Group")
     group = getGroup()
-    dictToS3(group, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_GROUP_PATH']+os.environ['STEAMGROUPID']+'.json',)
+    dictToS3(group, os.environ['S3_BUCKET'], os.environ['S3_OBJECT_STEAM_GROUP_PATH']+os.environ['STEAM_GROUP_ID']+'.json',)
 
 if __name__== "__main__":
     __main__()
