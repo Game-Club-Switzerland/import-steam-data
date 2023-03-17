@@ -1,6 +1,6 @@
 import os
 from dotenv import find_dotenv, load_dotenv
-import xmltodict
+import json
 import urllib
 from s3client import s3client
 
@@ -16,10 +16,12 @@ def getGroupfromS3():
     return response
 
 def getGroup():
-    url = 'https://'+os.environ['S3_BUCKET']+'.sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT']+os.environ['S3_OBJECT_STEAM_GROUP_URL']+os.environ['STEAMGROUPID']+'.json'
+    url = 'https://'+os.environ['S3_BUCKET']+'.sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT']+os.environ['S3_OBJECT_STEAM_GROUP_PATH']+os.environ['STEAMGROUPID']+'.json'
+    print(url)
+    url='https://sos-ch-dk-2.exo.io/gameclubch/api/rest/v1/steam/group/103582791430857185.json'
     response = urllib.request.urlopen(url).read()
-    data = xmltodict.parse(response)
-    return data
+    data = json.loads(response)
+    return data['memberList']['members']['steamID64']
 
 ## Load Steam Profile from API
 
