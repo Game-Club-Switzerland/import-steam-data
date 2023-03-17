@@ -1,3 +1,4 @@
 .env
 /public
 /public/*
+src/__pycache__/*
