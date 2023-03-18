@@ -8,8 +8,7 @@ load_dotenv(find_dotenv())
 
 ## Import Group Json from URL
 def getPlayerIndexfromUrl():
-    #url ='https://gameclubch.sos-ch-dk-2.exo.io/api/rest/v1/steam/player/index.json'
-    url = 'https://'+os.environ['S3_BUCKET']+'.sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT']+'/'+os.environ['S3_OBJECT_STEAM_PLAY_PATH']+'index.json'
+    url = 'https://'+os.environ['S3_BUCKET']+'.sos-'+os.environ['S3_REGION']+'.'+os.environ['S3_ENDPOINT']+'/'+os.environ['S3_OBJECT_STEAM_PROFILE_PATH']+'index.json'
     response = urllib.request.urlopen(url).read()
     data = json.loads(response)
     return data

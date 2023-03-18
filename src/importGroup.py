@@ -2,7 +2,7 @@ import os
 from dotenv import find_dotenv, load_dotenv
 import xmltodict
 import urllib
-from s3client import s3client, dictToS3
+from s3client import dictToS3
 
 load_dotenv(find_dotenv())
 
