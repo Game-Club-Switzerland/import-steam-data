@@ -1,0 +1,55 @@
+name: Import Steam Player
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+  - cron: "*/5 * * * *"
+
+env:
+  STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+  STEAM_GROUP_URL: ${{ secrets.STEAM_GROUP_URL }}
+  STEAM_GROUP_ID: ${{ secrets.STEAM_GROUP_ID }}
+  S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}
+  S3_REGION: ${{ secrets.S3_REGION }}
+  S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+  S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+  S3_OBJECT_STEAM_GROUP_PATH: ${{ secrets.S3_OBJECT_STEAM_GROUP_PATH }}
+  S3_OBJECT_STEAM_GROUP_URL: ${{ secrets.S3_OBJECT_STEAM_GROUP_URL }}
+  S3_OBJECT_STEAM_PROFILE_PATH: ${{ secrets.S3_OBJECT_STEAM_PROFILE_PATH }}
+  S3_OBJECT_STEAM_PLAY_PATH: ${{ secrets.S3_OBJECT_STEAM_PLAY_PATH }}
+
+jobs:
+  build:
+    name: Import Steam Player
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Create Virtual Environment
+        run: |
+          echo "${{ secrets.STEAM_GROUP_URL }}" > .env
+          echo "${{ secrets.STEAM_API_KEY }}" > .env
+          echo "${{ secrets.STEAM_GROUP_ID }}" > .env
+          echo "${{ secrets.S3_ENDPOINT }}" > .env
+          echo "${{ secrets.S3_BUCKET }}" > .env
+          echo "${{ secrets.S3_REGION }}" > .env
+          echo "${{ secrets.S3_ACCESS_KEY }}" > .env
+          echo "${{ secrets.S3_SECRET_ACCESS_KEY }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_GROUP_PATH }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_GROUP_URL }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_PROFILE_PATH }}" > .env
+          echo "${{ secrets.S3_OBJECT_STEAM_PLAY_PATH }}" > .env
+      - name: Install python-dotenv
+        run: pip install python-dotenv
+      - name: Install xmltodict
+        run: pip install xmltodict
+      - name: Install boto3
+        run: pip install boto3
+      - name: Run Script - Import Steam Profiles
+        working-directory: ./src
+        run: python importSteamProfile.py

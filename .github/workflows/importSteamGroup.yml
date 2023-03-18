@@ -1,11 +1,11 @@
-name: Import Steam Group, Player & Playlist
+name: Import Steam Group
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
   schedule:
-  - cron: "*/5 * * * *"
+  - cron: "*/15 * * * *"
 
 env:
   STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
@@ -23,7 +23,7 @@ env:
 
 jobs:
   build:
-    name: Import Steam Group, Player & Playlist
+    name: Import Steam Group
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -53,9 +53,3 @@ jobs:
       - name: Run Script - Import Group
         working-directory: ./src
         run: python importGroup.py
-      - name: Run Script - Import Steam Profiles
-        working-directory: ./src
-        run: python importSteamProfile.py
-      - name: Run Script - Update Playlist
-        working-directory: ./src
-        run: python setPlayIndexbyProfiles.py
