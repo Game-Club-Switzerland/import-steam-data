@@ -50,5 +50,6 @@ jobs:
         run: pip install xmltodict
       - name: Install boto3
         run: pip install boto3
+      - name: Run Script - Update Playlist
         working-directory: ./src
         run: python setPlayIndexbyProfiles.py
