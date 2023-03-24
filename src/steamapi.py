@@ -14,3 +14,15 @@ def getSteamGame(appId):
     response = urllib.request.urlopen(url).read()
     data = json.loads(response)
     return data[appId]['data']
+
+def GetOwnedGames(steamID):
+    url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='+os.environ['STEAM_API_KEY']+'&steamid='+steamID+'&format=json'
+    response = urllib.request.urlopen(url).read()
+    data = json.loads(response)
+    return data['response']['games']
+
+def GetRecentlyPlayedGames(steamID):
+    url = 'https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key='+os.environ['STEAM_API_KEY']+'&steamid='+steamID+'&format=json'
+    response = urllib.request.urlopen(url).read()
+    data = json.loads(response)
+    return data['response']['games']
