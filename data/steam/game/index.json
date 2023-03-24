@@ -1,16 +1,14 @@
-{
-    "games": [
-        {
-            "appid": "730",
-            "name": "Counter-Strike: Global Offensive"
-        },
-        {
-            "appid": "570",
-            "name": "Dota 2"
-        },
-        {
-            "appid": "440",
-            "name": "Team Fortress 2"
-        }
-    ]
-}
+[
+    {
+        "appid": "730",
+        "name": "Counter-Strike: Global Offensive"
+    },
+    {
+        "appid": "570",
+        "name": "Dota 2"
+    },
+    {
+        "appid": "440",
+        "name": "Team Fortress 2"
+    }
+]
