@@ -11,3 +11,7 @@ https://store.steampowered.com/api/appdetails?appids=440
 
 All Games
 https://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json
+
+
+## Deploy our Game List
+aws s3 sync public/api/rest/v1/game/importGames.json s3://gameclubch/api/rest/v1/game/importGames.json --endpoint-url https://sos-ch-dk-2.exo.io --acl "public-read" --profile gameclubchapp

@@ -2,3 +2,4 @@
 /public
 /public/*
 src/__pycache__/*
+/data/*
