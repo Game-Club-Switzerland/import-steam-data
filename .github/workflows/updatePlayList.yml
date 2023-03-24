@@ -52,4 +52,4 @@ jobs:
         run: pip install boto3
       - name: Run Script - Update Playlist
         working-directory: ./src
-        run: python setPlayIndexbyProfiles.py
+        run: python setSteamPlayIndexbyProfiles.py

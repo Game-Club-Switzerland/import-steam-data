@@ -52,4 +52,4 @@ jobs:
         run: pip install boto3
       - name: Run Script - Import Group
         working-directory: ./src
-        run: python importGroup.py
+        run: python importSteamGroup.py
