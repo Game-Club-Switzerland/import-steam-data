@@ -1,7 +1,5 @@
 import os
 from dotenv import find_dotenv, load_dotenv
-import xmltodict
-import urllib
 from s3client import dictToS3, updateObject
 from steamapi import getSteamGame
 
@@ -9,7 +7,7 @@ load_dotenv(find_dotenv())
 
 def __main__():
     print("Import Steam Game")
-    appid = '440'
+    appid = '730'
     game = getSteamGame(appid)
     print(game)
     print("Add to S3")
