@@ -8,3 +8,9 @@ def getSteamProfilebyID(steamID):
     response = urllib.request.urlopen(url).read()
     data = json.loads(response)
     return data['response']['players'][0]
+
+def getSteamGame(appId):
+    url = 'https://store.steampowered.com/api/appdetails?appids='+appId
+    response = urllib.request.urlopen(url).read()
+    data = json.loads(response)
+    return data[appId]['data']

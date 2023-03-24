@@ -28,7 +28,7 @@ def dictToS3(data, bucket, filename):
 # Get Object, add Value and put it back
 def updateObject(bucket, filename, key, value):
     s3 = s3client()
-    response = s3.download_file(Bucket=bucket, Key=filename)
+    response = s3.get_object(Bucket=bucket, Key=filename)
     print(" Response:")
     print(response)
     data = json.loads(response['Body'].read())
