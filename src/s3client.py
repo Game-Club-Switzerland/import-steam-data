@@ -31,14 +31,20 @@ def updateObject(bucket, filename, key, value):
     response = s3.get_object(Bucket=bucket, Key=filename)
     print(" Response:")
     print(response)
-    data = json.loads(response['Body'].read())
-    if data is None:
-        print("Data ist None")
+    data = response.get('Body').read().decode('utf-8')
+    print(" Data:")
+    print(data)
+    if len(data) == 0 :
+        print("No Data")
+        json_data = {}
     else:
-        data[key] = value
-        s3.put_object(
-            Bucket=bucket, 
-            Key=filename, 
-            Body=json.dumps(data), 
-            ACL='public-read',
-            ContentType='application/json')
+        json_data = json.loads(data)
+    json_data[key] = value
+    print("Data:")
+    print(json_data)
+    s3.put_object(
+        Bucket=bucket, 
+        Key=filename, 
+        Body=json.dumps(json_data), 
+        ACL='public-read',
+        ContentType='application/json')
