@@ -24,3 +24,21 @@ def dictToS3(data, bucket, filename):
         Body=json.dumps(data), 
         ACL='public-read',
         ContentType='application/json')
+    
+# Get Object, add Value and put it back
+def updateObject(bucket, filename, key, value):
+    s3 = s3client()
+    response = s3.download_file(Bucket=bucket, Key=filename)
+    print(" Response:")
+    print(response)
+    data = json.loads(response['Body'].read())
+    if data is None:
+        print("Data ist None")
+    else:
+        data[key] = value
+        s3.put_object(
+            Bucket=bucket, 
+            Key=filename, 
+            Body=json.dumps(data), 
+            ACL='public-read',
+            ContentType='application/json')
